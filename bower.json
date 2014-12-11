@@ -1,0 +1,27 @@
+{
+  "name": "panel.manager",
+  "main": "panel.manager.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/TheAndyBob/panel.manager",
+  "description": "A manager to handle the sizing of multiple panels",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "panel",
+    "knockout",
+    "binding",
+    "manager"
+  ],
+  "authors": [
+    "Andrew Stoker"
+  ],
+  "license": "GNU General Public License",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
