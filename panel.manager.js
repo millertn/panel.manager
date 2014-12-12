@@ -244,8 +244,17 @@ define(['jquery', 'knockout'], function ($, ko) {
 			//Calculate the heights of the panels
 			calculateHeights(options.panels);
 			
-			 //Make a single call to add all the panels to the DOM
-			$(element).append(panelViews);			
+			//TODO: Create bulk flag. If bulk, make a single call to add all the panels to the DOM
+			//$(element).append(panelViews);	
+			for(var i = 0; i < options.panels.length; i++){
+				$(element).append(options.panels[i]._panelView);
+				if (options.panels[i].compositionComplete && typeof options.panels[i].compositionComplete === "function"){
+					options.panels[i].compositionComplete();
+				}
+				
+			}
+			
+					
            
             return {controlsDescendantBindings: true};
         },
