@@ -1,12 +1,16 @@
 {
   "name": "panel.manager",
   "main": "panel.manager.js",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "https://github.com/TheAndyBob/panel.manager",
   "description": "A manager to handle the sizing of multiple panels",
   "moduleType": [
     "amd"
   ],
+  "dependencies": {
+	  "knockout": "~3.2.0",
+	  "jquery": "~2.1.1"
+  },
   "keywords": [
     "panel",
     "knockout",
