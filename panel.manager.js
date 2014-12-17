@@ -235,10 +235,18 @@ define(['jquery', 'knockout'], function ($, ko) {
 				//If the active property has changed, then trigger a recalculation of heights
 				if (panelOptions.active && ko.isObservable(panelOptions.active)) {
 					panelOptions.active.subscribe(function triggerHeightCalculation(newVal){
-						console.log("triggering height calculation");
+						//console.log("triggering height calculation");
 						calculateHeights(options.panels);
 					});
 				}
+				
+				//TODO: Research the actual need for this. It is supposed to catch any time the heights are changed and update all the other panels appropriately.
+				panelOptions.minHeight.subscribe(function triggerHeightCalculation(newVal) {
+				    calculateHeights(options.panels);
+				});
+				panelOptions.height.subscribe(function triggerHeightCalculation(newVal) {
+				    calculateHeights(options.panels);
+				});
 			}
 			
 			//Calculate the heights of the panels
