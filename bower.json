@@ -2,7 +2,7 @@
   "name": "panel.manager",
   "main": "panel.manager.js",
   "version": "0.0.1",
-  "homepage": "https://github.com/TheAndyBob/panel.manager",
+  "homepage": "https://github.com/astoker/panel.manager",
   "description": "A manager to handle the sizing of multiple panels",
   "moduleType": [
     "amd"
