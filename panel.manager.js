@@ -71,7 +71,7 @@ define(['jquery', 'knockout'], function ($, ko) {
 	        } else if ((panel.panelOptions.active && ko.unwrap(panel.panelOptions.active) === false) || (panelHeight === panelMinHeight && panel.panelOptions.collapsible)){
 	            inactivePanels.push(panel);
             } else { //default case, however this shouldn't hit. Leaving for testing
-	            console.log("TESTING CASE SHOULDN'T HIT");
+	            //console.log("TESTING CASE SHOULDN'T HIT");
 	            activePanels.push(panel);
             }     
             
@@ -113,12 +113,17 @@ define(['jquery', 'knockout'], function ($, ko) {
 		        }
 		        
 		        //If browser is IE (IE has problems with transitions and events), then simulate the afterResizeComplete callback (if it exists)
-		        if (isIE() > -1) {
-                    setTimeout(function () {
-                        if (panel.panelOptions.afterResizeComplete && typeof panel.panelOptions.afterResizeComplete === "function") {
-                            panel.panelOptions.afterResizeComplete(null, panel._panelView[0]);
-                        }
-                    }, (panel.panelOptions.transitionSpeed || options.transitionSpeed) * 1000 + 100);
+				if (isIE() > -1) {
+
+				    setTimeout((function (p) {
+				        return function () {
+				            if (p.panelOptions.afterResizeComplete && typeof p.panelOptions.afterResizeComplete === "function") {
+				                p.panelOptions.afterResizeComplete(null, p._panelView[0]);
+				            }
+				        }
+				    })(panel),
+                    (panel.panelOptions.transitionSpeed || options.transitionSpeed) * 1000 + 100);
+                    				  
                 }	        
                 
 		        panelHeight("calc("+((ko.unwrap(panel.panelOptions.weight) / activeWeights()) * 100).toFixed(1)+"% - "+inactivePanelHeights()/activePanels().length+"px)");	        
@@ -136,17 +141,21 @@ define(['jquery', 'knockout'], function ($, ko) {
 				if (panelMinHeight() !== panelHeight()){	
 					//If beforeResize callback exists, perform function
 					if (panel.panelOptions.beforeResize && typeof panel.panelOptions.beforeResize === "function") {
-		            panel.panelOptions.beforeResize(panel._panelView);
-		        }
+		                panel.panelOptions.beforeResize(panel._panelView);
+		            }
 			        
 			        //If browser is IE (IE has problems with transitions and events), then simulate the afterResizeComplete callback (if it exists)
 			        if (isIE() > -1) {
-                    setTimeout(function () {
-                        if (panel.panelOptions.afterResizeComplete && typeof panel.panelOptions.afterResizeComplete === "function") {
-                            panel.panelOptions.afterResizeComplete(null, panel._panelView[0]);
-                        }
-                    }, (panel.panelOptions.transitionSpeed || options.transitionSpeed) * 1000 + 100);
-                }
+			            setTimeout((function (p) {
+			                return function () {
+			                    if (p.panelOptions.afterResizeComplete && typeof p.panelOptions.afterResizeComplete === "function") {
+			                        p.panelOptions.afterResizeComplete(null, p._panelView[0]);
+			                    }
+			                }
+			            })(panel),
+                        (panel.panelOptions.transitionSpeed || options.transitionSpeed) * 1000 + 100);
+
+                    }
 	
 			        panelHeight(panel.panelOptions.minHeight());	        
 		        }
@@ -239,8 +248,6 @@ define(['jquery', 'knockout'], function ($, ko) {
 						calculateHeights(options.panels);
 					});
 				}
-				
-				//TODO: Research the actual need for this. It is supposed to catch any time the heights are changed and update all the other panels appropriately.
 				panelOptions.minHeight.subscribe(function triggerHeightCalculation(newVal) {
 				    calculateHeights(options.panels);
 				});
