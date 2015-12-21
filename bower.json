@@ -1,7 +1,7 @@
 {
   "name": "panel.manager",
   "main": "panel.manager.js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/astoker/panel.manager",
   "description": "A manager to handle the sizing of multiple panels",
   "moduleType": [
