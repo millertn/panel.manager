@@ -180,19 +180,18 @@ define(['jquery', 'knockout'], function ($, ko) {
 
     //Including browser sniffing to fix issue where IE does not work with css transitions when css calc is used
     function isIE() {
-        var rv = -1;
+        var rv = -1,
+            ua = navigator.userAgent;
         if (navigator.appName == 'Microsoft Internet Explorer') {
-            var ua = navigator.userAgent;
             var re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
             if (re.exec(ua) != null) {
                 rv = parseFloat(RegExp.$1);
             }
         }
         else if (navigator.appName == 'Netscape') {
-            var ua = navigator.userAgent;
-            var re = new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})");
+            var re = new RegExp("(Trident/.*rv:|Edge\/)([0-9]{1,}[\.0-9]{0,})");
             if (re.exec(ua) != null) {
-                rv = parseFloat(RegExp.$1);
+                rv = parseFloat(RegExp.$2);
             }
         }
         return rv;
