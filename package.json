@@ -1,0 +1,31 @@
+{
+  "name": "panel.manager",
+  "version": "0.0.3",
+  "description": "A manager to handle the sizing of multiple panels",
+  "keywords": [
+    "panel",
+    "knockout",
+    "binding",
+    "manager"
+  ],
+  "homepage": "https://github.com/astoker/panel.manager",
+  "license": "GNU General Public License",
+  "author": "Andrew Stoker",
+  "main": "panel.manager.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/astoker/panel.manager
+  },
+  "jspm": {
+    "main": "panel.manager",
+    "format": "amd",
+    "dependencies": {
+      "knockout": "~3.2.0",
+  	  "jquery": "~2.1.1"
+    },
+  },
+  "dependencies": {
+    "knockout": "^3.2.0",
+	  "jquery": "^2.1.1"
+  }
+}
