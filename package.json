@@ -22,7 +22,7 @@
     "dependencies": {
       	"knockout": "github:knockout/knockout@^3.2.0",
     	"jquery": "github:jquery/jquery@^2.1.1"
-    },
+    }
   },
   "dependencies": {
     	"knockout": "^3.2.0",
