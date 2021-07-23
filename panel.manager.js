@@ -215,17 +215,10 @@ define(['knockout'], function (ko) {
 			
 			//Create panel DOM elements and bind to the proper view models
 			for(var i = 0; i < options.panels.length; i++){
-				console.log(options.panels[i].panelOptions);
-				console.log(options.panels[i].panelOptions.view);
-				let temp = document.createElement('div').innerHTML = options.panels[i].panelOptions.view.toString();
-				let temp2 = document.createElement('div').innerHTML = options.panels[i].panelOptions.view;
-				let temp3 = document.createElement('div').append(options.panels[i].panelOptions.view);
-				console.log(temp);
-				console.log(temp2);
-				console.log(temp3);
-				options.panels[i]._panelView = temp; //Create the panel DOM object
-				console.log(options.panels[i]._panelView);
+				options.panels[i]._panelView = document.createElement('div').innerHTML = options.panels[i].panelOptions.view; //Create the panel DOM object
 				panelOptions = options.panels[i].panelOptions;
+
+				console.log(panelOptions);
 				
 				ko.applyBindingsToNode(options.panels[i]._panelView, {
 					style: {
@@ -272,7 +265,7 @@ define(['knockout'], function (ko) {
 			//$(element).append(panelViews);	
 			for(var i = 0; i < options.panels.length; i++){
 				console.log(element);
-				element.insertAdjacentHTML('beforeend', options.panels[i]._panelView);
+				element.innerHTML = options.panels[i]._panelView;
 				console.log(element);
 				if (options.panels[i].compositionComplete && typeof options.panels[i].compositionComplete === "function"){
 					options.panels[i].compositionComplete();
