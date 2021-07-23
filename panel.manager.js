@@ -217,7 +217,8 @@ define(['knockout'], function (ko) {
 			for(var i = 0; i < options.panels.length; i++){
 				console.log(options.panels[i].panelOptions);
 				console.log(options.panels[i].panelOptions.view);
-				options.panels[i]._panelView = document.createElement('div').append(options.panels[i].panelOptions.view); //Create the panel DOM object
+				let temp = document.createElement('div').insertAdjacentHTML('beforeend', options.panels[i].panelOptions.view);
+				options.panels[i]._panelView = temp; //Create the panel DOM object
 				console.log(options.panels[i]._panelView);
 				panelOptions = options.panels[i].panelOptions;
 				
@@ -266,7 +267,7 @@ define(['knockout'], function (ko) {
 			//$(element).append(panelViews);	
 			for(var i = 0; i < options.panels.length; i++){
 				console.log(element);
-				element.appendChild(options.panels[i]._panelView);
+				element.insertAdjacentHTML('beforeend', options.panels[i]._panelView);
 				console.log(element);
 				if (options.panels[i].compositionComplete && typeof options.panels[i].compositionComplete === "function"){
 					options.panels[i].compositionComplete();
