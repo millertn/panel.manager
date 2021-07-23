@@ -225,7 +225,7 @@ define(['knockout'], function (ko) {
 					}
 				}, options.panels[i]);	//Apply bindings to the new DOM object
 				
-				ko.applyBindingsToDescendants(options.panels[i], options.panels[i]._panelView[0]);//Set context/bindings for descendents
+				ko.applyBindingsToDescendants(options.panels[i], options.panels[i]._panelView);//Set context/bindings for descendents
 
 				panelViews.push(options.panels[i]._panelView); //Push the created panel into the array of panels
 				
