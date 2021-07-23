@@ -1,4 +1,4 @@
-define(['jquery', 'knockout'], function ($, ko) {
+define(['knockout'], function (ko) {
 
     var activePanels = ko.observableArray(),
     	activeWeights = ko.computed(function(){
@@ -32,7 +32,7 @@ define(['jquery', 'knockout'], function ($, ko) {
                 type = type.toLowerCase();
             }
             //$(bindingRootElement).on(pfx[p] + type, $(element), callback);    
-            $(element).on(pfx[p] + type, callback);            
+            element.addEventListener(pfx[p] + type, callback);            
         }
     }
 
@@ -211,21 +211,20 @@ define(['jquery', 'knockout'], function ($, ko) {
             options.transitionSpeed = vac.options.transitionSpeed || 0,
 			options.allowCloseAll = vac.options.allowCloseAll;
 			
-			
-			
 			//Create panel DOM elements and bind to the proper view models
 			for(var i = 0; i < options.panels.length; i++){
-				options.panels[i]._panelView = $("<li>").append(options.panels[i].panelOptions.view); //Create the panel DOM object
+				let newElement = document.createElement('div');
+				newElement.innerHTML =  options.panels[i].panelOptions.view;
+				options.panels[i]._panelView = newElement; //Create the panel DOM object
 				panelOptions = options.panels[i].panelOptions;
-				
-				ko.applyBindingsToNode(options.panels[i]._panelView[0], {
+				ko.applyBindingsToNode(options.panels[i]._panelView, {
 					style: {
 						height: panelOptions.height, 
 						transition: formCSSTransition(panelOptions.transitionOptions)
 					}
 				}, options.panels[i]);	//Apply bindings to the new DOM object
 				
-				ko.applyBindingsToDescendants(options.panels[i], options.panels[i]._panelView[0]);//Set context/bindings for descendents
+				ko.applyBindingsToDescendants(options.panels[i], options.panels[i]._panelView);//Set context/bindings for descendents
 
 				panelViews.push(options.panels[i]._panelView); //Push the created panel into the array of panels
 				
@@ -239,7 +238,6 @@ define(['jquery', 'knockout'], function ($, ko) {
                     }                  
                 });
 
-				
 				//If the active property has changed, then trigger a recalculation of heights
 				if (panelOptions.active && ko.isObservable(panelOptions.active)) {
 					panelOptions.active.subscribe(function triggerHeightCalculation(newVal){
@@ -261,7 +259,7 @@ define(['jquery', 'knockout'], function ($, ko) {
 			//TODO: Create bulk flag. If bulk, make a single call to add all the panels to the DOM
 			//$(element).append(panelViews);	
 			for(var i = 0; i < options.panels.length; i++){
-				$(element).append(options.panels[i]._panelView);
+				element.append(options.panels[i]._panelView);
 				if (options.panels[i].compositionComplete && typeof options.panels[i].compositionComplete === "function"){
 					options.panels[i].compositionComplete();
 				}
