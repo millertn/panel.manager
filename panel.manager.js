@@ -217,8 +217,8 @@ define(['knockout'], function (ko) {
 			for(var i = 0; i < options.panels.length; i++){
 				console.log(options.panels[i].panelOptions);
 				console.log(options.panels[i].panelOptions.view);
-				let temp = document.createElement('div').insertAdjacentHTML('beforeend', options.panels[i].panelOptions.view.toString());
-				let temp2 = document.createElement('div').append(options.panels[i].panelOptions.view.toString());
+				let temp = document.createElement('div').innerHTML(options.panels[i].panelOptions.view.toString());
+				let temp2 = document.createElement('div').innerHTML(options.panels[i].panelOptions.view);
 				let temp3 = document.createElement('div').append(options.panels[i].panelOptions.view);
 				console.log(temp);
 				console.log(temp2);
