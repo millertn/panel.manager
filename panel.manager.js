@@ -267,7 +267,7 @@ define(['knockout'], function (ko) {
 			//$(element).append(panelViews);	
 			for(var i = 0; i < options.panels.length; i++){
 				console.log(element);
-				element.innerHTML = options.panels[i]._panelView;
+				element.append(options.panels[i]._panelView);
 				console.log(element);
 				if (options.panels[i].compositionComplete && typeof options.panels[i].compositionComplete === "function"){
 					options.panels[i].compositionComplete();
