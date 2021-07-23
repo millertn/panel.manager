@@ -217,7 +217,12 @@ define(['knockout'], function (ko) {
 			for(var i = 0; i < options.panels.length; i++){
 				console.log(options.panels[i].panelOptions);
 				console.log(options.panels[i].panelOptions.view);
-				let temp = document.createElement('div').insertAdjacentHTML('beforeend', options.panels[i].panelOptions.view);
+				let temp = document.createElement('div').insertAdjacentHTML('beforeend', options.panels[i].panelOptions.view.toString());
+				let temp2 = document.createElement('div').append(options.panels[i].panelOptions.view.toString());
+				let temp3 = document.createElement('div').append(options.panels[i].panelOptions.view);
+				console.log(temp);
+				console.log(temp2);
+				console.log(temp3);
 				options.panels[i]._panelView = temp; //Create the panel DOM object
 				console.log(options.panels[i]._panelView);
 				panelOptions = options.panels[i].panelOptions;
