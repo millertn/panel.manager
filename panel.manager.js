@@ -215,7 +215,9 @@ define(['knockout'], function (ko) {
 			
 			//Create panel DOM elements and bind to the proper view models
 			for(var i = 0; i < options.panels.length; i++){
-				options.panels[i]._panelView = document.createElement('div').innerHTML = options.panels[i].panelOptions.view; //Create the panel DOM object
+				let newElement = document.createElement('div');
+				newElement.innerHTML =  options.panels[i].panelOptions.view;
+				options.panels[i]._panelView = newElement; //Create the panel DOM object
 				panelOptions = options.panels[i].panelOptions;
 
 				console.log(panelOptions);
