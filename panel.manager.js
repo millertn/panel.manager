@@ -1,4 +1,4 @@
-define(['jquery', 'knockout'], function ($, ko) {
+define(['knockout'], function (ko) {
 
     var activePanels = ko.observableArray(),
     	activeWeights = ko.computed(function(){
@@ -32,7 +32,7 @@ define(['jquery', 'knockout'], function ($, ko) {
                 type = type.toLowerCase();
             }
             //$(bindingRootElement).on(pfx[p] + type, $(element), callback);    
-            $(element).on(pfx[p] + type, callback);            
+            element.addEventListener(pfx[p] + type, callback);            
         }
     }
 
@@ -215,7 +215,7 @@ define(['jquery', 'knockout'], function ($, ko) {
 			
 			//Create panel DOM elements and bind to the proper view models
 			for(var i = 0; i < options.panels.length; i++){
-				options.panels[i]._panelView = $("<li>").append(options.panels[i].panelOptions.view); //Create the panel DOM object
+				options.panels[i]._panelView = document.createElement('div').append(options.panels[i].panelOptions.view); //Create the panel DOM object
 				panelOptions = options.panels[i].panelOptions;
 				
 				ko.applyBindingsToNode(options.panels[i]._panelView[0], {
@@ -261,7 +261,7 @@ define(['jquery', 'knockout'], function ($, ko) {
 			//TODO: Create bulk flag. If bulk, make a single call to add all the panels to the DOM
 			//$(element).append(panelViews);	
 			for(var i = 0; i < options.panels.length; i++){
-				$(element).append(options.panels[i]._panelView);
+				element.append(options.panels[i]._panelView);
 				if (options.panels[i].compositionComplete && typeof options.panels[i].compositionComplete === "function"){
 					options.panels[i].compositionComplete();
 				}
