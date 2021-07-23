@@ -218,7 +218,7 @@ define(['knockout'], function (ko) {
 				options.panels[i]._panelView = document.createElement('div').append(options.panels[i].panelOptions.view); //Create the panel DOM object
 				panelOptions = options.panels[i].panelOptions;
 				
-				ko.applyBindingsToNode(options.panels[i]._panelView[0], {
+				ko.applyBindingsToNode(options.panels[i]._panelView, {
 					style: {
 						height: panelOptions.height, 
 						transition: formCSSTransition(panelOptions.transitionOptions)
