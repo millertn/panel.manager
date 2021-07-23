@@ -216,6 +216,7 @@ define(['knockout'], function (ko) {
 			//Create panel DOM elements and bind to the proper view models
 			for(var i = 0; i < options.panels.length; i++){
 				options.panels[i]._panelView = document.createElement('div').append(options.panels[i].panelOptions.view); //Create the panel DOM object
+				console.log(options.panels[i]._panelView);
 				panelOptions = options.panels[i].panelOptions;
 				
 				ko.applyBindingsToNode(options.panels[i]._panelView, {
@@ -228,6 +229,7 @@ define(['knockout'], function (ko) {
 				ko.applyBindingsToDescendants(options.panels[i], options.panels[i]._panelView);//Set context/bindings for descendents
 
 				panelViews.push(options.panels[i]._panelView); //Push the created panel into the array of panels
+				console.log(panelViews);
 				
 				
 				//Register prefixed based event for transition end
@@ -261,7 +263,9 @@ define(['knockout'], function (ko) {
 			//TODO: Create bulk flag. If bulk, make a single call to add all the panels to the DOM
 			//$(element).append(panelViews);	
 			for(var i = 0; i < options.panels.length; i++){
+				console.log(element);
 				element.append(options.panels[i]._panelView);
+				console.log(element);
 				if (options.panels[i].compositionComplete && typeof options.panels[i].compositionComplete === "function"){
 					options.panels[i].compositionComplete();
 				}
