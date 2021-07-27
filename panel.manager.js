@@ -234,7 +234,7 @@ define(['knockout'], function (ko) {
 	                transitionEvent.stopPropagation();
 	                var panel = ko.dataFor(transitionEvent.target);
                     if (panel.panelOptions.afterResizeComplete && typeof panel.panelOptions.afterResizeComplete === "function") {
-                        panel.panelOptions.afterResizeComplete(transitionEvent, panel._panelView[0]);
+                        panel.panelOptions.afterResizeComplete(transitionEvent, panel._panelView);
                     }                  
                 });
 
