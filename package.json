@@ -1,6 +1,6 @@
 {
   "name": "panel.manager",
-  "version": "0.0.3",
+  "version": "1.0.1",
   "description": "A manager to handle the sizing of multiple panels",
   "keywords": [
     "panel",
@@ -20,12 +20,10 @@
     "main": "panel.manager",
     "format": "amd",
     "dependencies": {
-      	"knockout": "github:knockout/knockout@^3.2.0",
-    	"jquery": "github:jquery/jquery@^2.1.1"
+      	"knockout": "github:knockout/knockout@^3.2.0"
     }
   },
   "dependencies": {
-    	"knockout": "^3.2.0",
-  	"jquery": "^2.1.1"
+    	"knockout": "^3.2.0"
   }
 }
