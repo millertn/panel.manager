@@ -263,8 +263,9 @@ define(['knockout'], function (ko) {
 				if (options.panels[i].compositionComplete && typeof options.panels[i].compositionComplete === "function"){
 					options.panels[i].compositionComplete();
 				}
-				
 			}
+
+			console.log(element);
 			
 					
            
