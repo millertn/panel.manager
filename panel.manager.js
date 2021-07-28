@@ -214,9 +214,13 @@ define(['knockout'], function (ko) {
 			//Create panel DOM elements and bind to the proper view models
 			for(var i = 0; i < options.panels.length; i++){
 				let newElement = document.createElement('div');
-				newElement.innerHTML =  options.panels[i].panelOptions.view;
+				newElement.innerHTML = options.panels[i].panelOptions.view;
 				options.panels[i]._panelView = newElement; //Create the panel DOM object
 				panelOptions = options.panels[i].panelOptions;
+
+				console.log(panelOptions);
+				console.log(options.panels[i].panelOptions.view);
+
 				ko.applyBindingsToNode(options.panels[i]._panelView, {
 					style: {
 						height: panelOptions.height, 
@@ -255,6 +259,8 @@ define(['knockout'], function (ko) {
 			
 			//Calculate the heights of the panels
 			calculateHeights(options.panels);
+
+			console.log(panelViews);
 			
 			//TODO: Create bulk flag. If bulk, make a single call to add all the panels to the DOM
 			//$(element).append(panelViews);	
