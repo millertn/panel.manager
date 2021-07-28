@@ -32,7 +32,7 @@ define(['jquery', 'knockout'], function ($, ko) {
                 type = type.toLowerCase();
             }
             //$(bindingRootElement).on(pfx[p] + type, $(element), callback);    
-            $(element).on(pfx[p] + type, callback);            
+            element.addEventListener(pfx[p] + type, callback);            
         }
     }
 
