@@ -1,4 +1,4 @@
-define(['knockout'], function (ko) {
+define(['jquery', 'knockout'], function ($, ko) {
 
     var activePanels = ko.observableArray(),
     	activeWeights = ko.computed(function(){
@@ -32,7 +32,7 @@ define(['knockout'], function (ko) {
                 type = type.toLowerCase();
             }
             //$(bindingRootElement).on(pfx[p] + type, $(element), callback);    
-            element.addEventListener(pfx[p] + type, callback);            
+            $(element).on(pfx[p] + type, callback);            
         }
     }
 
@@ -180,18 +180,19 @@ define(['knockout'], function (ko) {
 
     //Including browser sniffing to fix issue where IE does not work with css transitions when css calc is used
     function isIE() {
-        var rv = -1,
-            ua = navigator.userAgent;
+        var rv = -1;
         if (navigator.appName == 'Microsoft Internet Explorer') {
+            var ua = navigator.userAgent;
             var re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
             if (re.exec(ua) != null) {
                 rv = parseFloat(RegExp.$1);
             }
         }
         else if (navigator.appName == 'Netscape') {
-            var re = new RegExp("(Trident/.*rv:|Edge\/)([0-9]{1,}[\.0-9]{0,})");
+            var ua = navigator.userAgent;
+            var re = new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})");
             if (re.exec(ua) != null) {
-                rv = parseFloat(RegExp.$2);
+                rv = parseFloat(RegExp.$1);
             }
         }
         return rv;
@@ -211,24 +212,21 @@ define(['knockout'], function (ko) {
             options.transitionSpeed = vac.options.transitionSpeed || 0,
 			options.allowCloseAll = vac.options.allowCloseAll;
 			
+			
+			
 			//Create panel DOM elements and bind to the proper view models
 			for(var i = 0; i < options.panels.length; i++){
-				let newElement = document.createElement('div');
-				newElement.innerHTML = options.panels[i].panelOptions.view;
-				options.panels[i]._panelView = newElement; //Create the panel DOM object
+				options.panels[i]._panelView = $("<div>").append(options.panels[i].panelOptions.view); //Create the panel DOM object
 				panelOptions = options.panels[i].panelOptions;
-
-				console.log(panelOptions);
-				console.log(options.panels[i].panelOptions.view);
-
-				ko.applyBindingsToNode(options.panels[i]._panelView, {
+				
+				ko.applyBindingsToNode(options.panels[i]._panelView[0], {
 					style: {
 						height: panelOptions.height, 
 						transition: formCSSTransition(panelOptions.transitionOptions)
 					}
 				}, options.panels[i]);	//Apply bindings to the new DOM object
 				
-				ko.applyBindingsToDescendants(options.panels[i], options.panels[i]._panelView);//Set context/bindings for descendents
+				ko.applyBindingsToDescendants(options.panels[i], options.panels[i]._panelView[0]);//Set context/bindings for descendents
 
 				panelViews.push(options.panels[i]._panelView); //Push the created panel into the array of panels
 				
@@ -242,6 +240,7 @@ define(['knockout'], function (ko) {
                     }                  
                 });
 
+				
 				//If the active property has changed, then trigger a recalculation of heights
 				if (panelOptions.active && ko.isObservable(panelOptions.active)) {
 					panelOptions.active.subscribe(function triggerHeightCalculation(newVal){
@@ -259,19 +258,16 @@ define(['knockout'], function (ko) {
 			
 			//Calculate the heights of the panels
 			calculateHeights(options.panels);
-
-			console.log(panelViews);
 			
 			//TODO: Create bulk flag. If bulk, make a single call to add all the panels to the DOM
 			//$(element).append(panelViews);	
 			for(var i = 0; i < options.panels.length; i++){
-				element.append(options.panels[i]._panelView);
+				$(element).append(options.panels[i]._panelView);
 				if (options.panels[i].compositionComplete && typeof options.panels[i].compositionComplete === "function"){
 					options.panels[i].compositionComplete();
 				}
+				
 			}
-
-			console.log(element);
 			
 					
            
